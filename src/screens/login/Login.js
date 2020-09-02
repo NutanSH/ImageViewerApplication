@@ -22,13 +22,22 @@ class Login extends Component {
             usernameRequired: "dispNone",
             username: "",
             passwordRequired: "dispNone",
-            password: ""
+            password: "",
+            errorMessage: ""
         }
     }
 
     loginClickHandler = () => {
         this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" });
         this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" });
+        // let username ="TestUser";
+        // let password="TestPwd";
+        if ((this.state.username === "TestUser") || (this.state.password === "TestPwd")) {
+            this.setState({ errorMessage: "dispNone" })
+        }
+        else {
+            this.setState({ errorMessage: "dispBlock" })
+        }
     }
 
     usernameChangeHandler = (e) => {
@@ -41,6 +50,17 @@ class Login extends Component {
 
     render() {
 
+        const mystyle = {
+            minWidth: 240,
+            maxWidth: 240,
+            left: '40%',
+            position: 'absolute',
+            top: '15%',
+        };
+
+
+
+
 
         return (
             <div>
@@ -48,7 +68,7 @@ class Login extends Component {
 
 
 
-                <Card>
+                <Card style={mystyle}>
 
                     <CardContent >
                         <FormControl >
@@ -69,14 +89,16 @@ class Login extends Component {
                             <FormHelperText className={this.state.passwordRequired}>
                                 <span className="red">required</span>
                             </FormHelperText>
-                            {/* <FormHelperText>
-                                    <span className="red">Incorrect username and/or password</span>
-                                </FormHelperText> */}
+
                         </FormControl><br /><br />
                         <FormControl>
+                            {/* <FormHelperText className={this.state.errorMessage}>
+                                    <span className="red">Incorrect username and/or password</span>
+                                </FormHelperText> */}
                             <Button variant="contained" color="primary" onClick={this.loginClickHandler}>
                                 LOGIN
                                     </Button>
+
                         </FormControl>
 
                     </CardContent>
