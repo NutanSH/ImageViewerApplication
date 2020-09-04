@@ -28,23 +28,20 @@ class Login extends Component {
     }
 
     loginClickHandler = (e) => {
-    //     this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" });
-    //     this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" });
-    //     const username = "TestUser";
-    //     const password= "TestPwd";
-    //     if (!(this.state.username === "" || this.state.password === "")){
-    //     if ((this.state.username === username) && (this.state.password === password)) {
-    //         this.setState({ errorMessage: "dispNone" })
-    //     }
-    //     else {
-    //         this.setState({ errorMessage: "dispBlock" })
-    //     }
-    // }
+        this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" });
+        this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" });
+        const username = "TestUser";
+        const password = "TestPwd";
+        if (!(this.state.username === "" || this.state.password === "")) {
+            if ((this.state.username === username) && (this.state.password === password)) {
+                this.setState({ errorMessage: "dispNone" })
+            }
+            else {
+                this.setState({ errorMessage: "dispBlock" })
+            }
+        }
 
-    e.preventDefault();
-    this.props.homePageHandler(this.state);
-    this.props.history.push("/");
-    
+
     }
 
     usernameChangeHandler = (e) => {
@@ -57,7 +54,7 @@ class Login extends Component {
 
     render() {
 
-        const mystyle = {
+        const customStyle = {
             minWidth: 240,
             maxWidth: 240,
             left: '40%',
@@ -75,7 +72,7 @@ class Login extends Component {
 
 
 
-                <Card style={mystyle}>
+                <Card style={customStyle}>
 
                     <CardContent >
                         <FormControl >
@@ -85,23 +82,23 @@ class Login extends Component {
                         </FormControl><br />
                         <FormControl required>
                             <InputLabel htmlFor="userName">Username</InputLabel>
-                            <Input id="username" onChange={this.usernameChangeHandler} />
+                            <Input id="username" type="text" onChange={this.usernameChangeHandler} />
                             <FormHelperText className={this.state.usernameRequired}>
                                 <span className="red">required</span>
                             </FormHelperText>
                         </FormControl><br />
                         <FormControl required>
                             <InputLabel htmlFor="password">Password</InputLabel>
-                            <Input id="password" onChange={this.passwordChangeHandler} />
+                            <Input id="password" type="password" onChange={this.passwordChangeHandler} />
                             <FormHelperText className={this.state.passwordRequired}>
                                 <span className="red">required</span>
                             </FormHelperText><br />
                         </FormControl>
                         <FormControl>
                             <FormHelperText className={this.state.errorMessage}>
-                                    <span className="red">Incorrect username and/or password</span>
-                                </FormHelperText>
-                                <br />
+                                <span className="red">Incorrect username and/or password</span>
+                            </FormHelperText>
+                            <br />
                             <Button variant="contained" color="primary" onClick={this.loginClickHandler}>
                                 LOGIN
                                     </Button>
