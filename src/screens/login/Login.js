@@ -23,21 +23,28 @@ class Login extends Component {
             username: "",
             passwordRequired: "dispNone",
             password: "",
-            errorMessage: ""
+            errorMessage: "dispNone"
         }
     }
 
-    loginClickHandler = () => {
-        this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" });
-        this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" });
-        // let username ="TestUser";
-        // let password="TestPwd";
-        if ((this.state.username === "TestUser") || (this.state.password === "TestPwd")) {
-            this.setState({ errorMessage: "dispNone" })
-        }
-        else {
-            this.setState({ errorMessage: "dispBlock" })
-        }
+    loginClickHandler = (e) => {
+    //     this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" });
+    //     this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" });
+    //     const username = "TestUser";
+    //     const password= "TestPwd";
+    //     if (!(this.state.username === "" || this.state.password === "")){
+    //     if ((this.state.username === username) && (this.state.password === password)) {
+    //         this.setState({ errorMessage: "dispNone" })
+    //     }
+    //     else {
+    //         this.setState({ errorMessage: "dispBlock" })
+    //     }
+    // }
+
+    e.preventDefault();
+    this.props.homePageHandler(this.state);
+    this.props.history.push("/");
+    
     }
 
     usernameChangeHandler = (e) => {
@@ -85,16 +92,16 @@ class Login extends Component {
                         </FormControl><br />
                         <FormControl required>
                             <InputLabel htmlFor="password">Password</InputLabel>
-                            <Input id="password" onChange={this.passwordChangeHandler} /><br />
+                            <Input id="password" onChange={this.passwordChangeHandler} />
                             <FormHelperText className={this.state.passwordRequired}>
                                 <span className="red">required</span>
-                            </FormHelperText>
-
-                        </FormControl><br /><br />
+                            </FormHelperText><br />
+                        </FormControl>
                         <FormControl>
-                            {/* <FormHelperText className={this.state.errorMessage}>
+                            <FormHelperText className={this.state.errorMessage}>
                                     <span className="red">Incorrect username and/or password</span>
-                                </FormHelperText> */}
+                                </FormHelperText>
+                                <br />
                             <Button variant="contained" color="primary" onClick={this.loginClickHandler}>
                                 LOGIN
                                     </Button>
