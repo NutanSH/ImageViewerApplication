@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
-//import { makeStyles } from '@material-ui/core/styles';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
 
@@ -27,19 +26,37 @@ class Login extends Component {
         }
     }
 
+    /* Below click handler gets executed after the LOGIN button click */
     loginClickHandler = (e) => {
-        this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" });
-        this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" });
+        /* Mock user id and password used for authentication */
         const username = "TestUser";
         const password = "TestPwd";
-        if (!(this.state.username === "" || this.state.password === "")) {
+        /* access token obtained from instagram for making API calls */
+        const accessToken = 'IGQVJXajFhSUp2d3BoRHBCdDU1bkx6LWJPN1hwX1pwMExxX1RlSVFmT3lFUjdNWHVhclJSRmRqbGxlWHpXOFJFMTNXTEdydElGVjgyQU4zWC1MZAzBRT1dMeURTSktCX0U4TFljd1ZAB';
+
+        /* Check whether mandatory fields are filled*/
+        this.state.username === "" ? this.setState({ usernameRequired: "dispBlock" }) : this.setState({ usernameRequired: "dispNone" });
+        this.state.password === "" ? this.setState({ passwordRequired: "dispBlock" }) : this.setState({ passwordRequired: "dispNone" });
+
+        if (this.state.username !== "" && this.state.password !== "") {
             if ((this.state.username === username) && (this.state.password === password)) {
                 this.setState({ errorMessage: "dispNone" })
+                /* Store access token in session storage so that it can be used later for making API calls to instagram */
+                sessionStorage.setItem("access-token", accessToken)
+
+                /* Launch home page after successful login */
+                this.props.history.push({
+                    pathname: `/home`,
+                    state: this.state
+                });
             }
             else {
                 this.setState({ errorMessage: "dispBlock" })
             }
+
+
         }
+
 
 
     }
@@ -54,7 +71,7 @@ class Login extends Component {
 
     render() {
 
-        const customStyle = {
+        const mystyle = {
             minWidth: 240,
             maxWidth: 240,
             left: '40%',
@@ -72,17 +89,15 @@ class Login extends Component {
 
 
 
-                <Card style={customStyle}>
+                <Card style={mystyle}>
 
                     <CardContent >
                         <FormControl >
-                            <Typography color="textSecondary">
-                                LOGIN
-                                    </Typography>
+                            <Typography color="textSecondary">LOGIN</Typography>
                         </FormControl><br />
                         <FormControl required>
                             <InputLabel htmlFor="userName">Username</InputLabel>
-                            <Input id="username" type="text" onChange={this.usernameChangeHandler} />
+                            <Input id="username" onChange={this.usernameChangeHandler} />
                             <FormHelperText className={this.state.usernameRequired}>
                                 <span className="red">required</span>
                             </FormHelperText>
@@ -93,17 +108,16 @@ class Login extends Component {
                             <FormHelperText className={this.state.passwordRequired}>
                                 <span className="red">required</span>
                             </FormHelperText><br />
-                        </FormControl>
-                        <FormControl>
+
                             <FormHelperText className={this.state.errorMessage}>
                                 <span className="red">Incorrect username and/or password</span>
                             </FormHelperText>
                             <br />
-                            <Button variant="contained" color="primary" onClick={this.loginClickHandler}>
-                                LOGIN
-                                    </Button>
-
                         </FormControl>
+                        <br />
+
+                        <Button variant="contained" color="primary" onClick={this.loginClickHandler}>LOGIN</Button>
+
 
                     </CardContent>
 
