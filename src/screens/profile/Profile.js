@@ -19,7 +19,7 @@ import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 import EditIcon from '@material-ui/icons/Edit';
 import Fab from '@material-ui/core/Fab';
-import IconButton from '@material-ui/core/IconButton';
+
 
 
 
@@ -34,12 +34,6 @@ const styles = theme => ({
     },
     gridListImages: {
         marginTop: '0.5rem !important'
-    },
-    gridListImages: {
-        flexWrap: 'nowrap',
-        transform: 'translateZ(0)',
-        width: '80%',
-        cursor: 'pointer'
     },
     media: {
         display: 'flex',
@@ -67,17 +61,6 @@ const customStylesEditFullName = {
     }
 };
 
-const customStyles = {
-    content: {
-        top: '20%',
-        left: '90%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-
-    }
-};
 
 
 const TabContainer = function (props) {
@@ -106,42 +89,43 @@ class Profile extends Component {
             viewPostmodalIsOpen: false,
             editPostmodalIsOpen: false,
             viewPostModalData: [],
-            imagecomment:"",
-            addedComment:"",
-            username:"",
+            imagecomment: "",
+            addedComment: "",
+            username: "",
             likeFlag: false,
-            likes : 5
+            likes: 5
         }
     }
 
     likeClickHanlder() {
 
-        this.setState({likes: this.state.likes + 1});
-        this.setState({likeFlag: true});
+        this.setState({ likes: this.state.likes + 1 });
+        this.setState({ likeFlag: true });
 
     }
 
-    unlikeClickHanlder(){
+    unlikeClickHanlder() {
         this.setState({
-            likes: this.state.likes - 1});
-        this.setState({likeFlag: false});
+            likes: this.state.likes - 1
+        });
+        this.setState({ likeFlag: false });
 
     }
 
     imageCommentOnChangeChangeHandler = (e) => {
-        this.setState({imagecomment: e.target.value});
+        this.setState({ imagecomment: e.target.value });
     }
 
     addCommentOnClickHandler = (e) => {
-        this.setState({addedComment :this.state.imagecomment});
-        this.setState({username: "upgraddemo: "});
+        this.setState({ addedComment: this.state.imagecomment });
+        this.setState({ username: "upgraddemo: " });
 
     }
 
 
     async UNSAFE_componentWillMount() {
         const token = sessionStorage.getItem("access-token");
-        console.log(" token ", token);
+
         if (token === null) {
             this.props.history.push({
                 pathname: `/`,
@@ -158,23 +142,23 @@ class Profile extends Component {
         });
     }
 
-
+    // Logic for opening the view post modal
     openViewPostModalHandler = (post) => {
         this.setState({
             viewPostmodalIsOpen: true,
             viewPostModalData: post
 
         });
-        
+
     }
 
-
+    // Logic for closing the view post modal
     closeModalHandler = () => {
         this.setState({ viewPostmodalIsOpen: false });
         this.setState({ editPostmodalIsOpen: false });
     }
 
-
+    // Logic for opening Edit Modal
     openEditModalHandler = () => {
         this.setState({
             modalIsOpen: true,
@@ -186,15 +170,19 @@ class Profile extends Component {
         });
     }
 
+    // Logic for closing Edit Modal
     closeEditModalHandler = () => {
         this.setState({ modalIsOpen: false });
     }
 
+    //Logic for capturin the changed full name 
     inputFullnameChangeHandler = (e) => {
         this.setState({ fullname: e.target.value });
 
     }
 
+
+    //Logic for updating the full name 
     updateClickHandler = (e) => {
 
         this.state.fullname === "" ? this.setState({ fullnameRequired: "dispBlock" }) : this.setState({ fullnameRequired: "dispNone" });
@@ -226,7 +214,7 @@ class Profile extends Component {
 
         return (
             <div >
-                <Header showProfileIcon="true" showMyAccount="false"/>
+                <Header showProfileIcon="true" showMyAccount="false" />
 
 
 
@@ -240,14 +228,16 @@ class Profile extends Component {
                             <div className="row1">
                                 <div className="col-left">
                                     <Avatar className="largeAvatar">
-                                        <img src={require('../../assets/profile_pic.jpg')} alt={"logo"} alt="ProfilePicture" style={{ display: 'flex' }} />
+                                        <img src={require('../../assets/profile_pic.jpg')}  alt="ProfilePicture" style={{ display: 'flex' }} />
                                     </Avatar>
                                 </div>
 
                                 <div className="col-center">
                                     <span><div className="row-one">{this.state.mediaData.username}</div></span>
                                     <span><div className="row-two">
-                                        <div className="col-l">Posts : 7</div>
+                                        {/* Display no. of posts dynamically */}
+                                        <div className="col-l">Posts : {this.state.mediaData.length}</div>
+                                        {/* Display values for followers and following  */}
                                         <div className="col-c">Follows : 150</div>
                                         <div className="col-r">Followed By : 281</div>
                                     </div></span>
@@ -328,7 +318,7 @@ class Profile extends Component {
                     <div className="row-card">
 
                         <div className="column-card-left" >
-                            <img src={this.state.viewPostModalData.media_url} />
+                            <img src={this.state.viewPostModalData.media_url} alt="profilepic"/>
 
                         </div>
 
@@ -338,59 +328,59 @@ class Profile extends Component {
 
 
 
-                        <Card className="cardStyle">
+                            <Card className="cardStyle">
                                 <CardHeader
                                     avatar={
                                         <Avatar src={require('../../assets/profile_pic.jpg')} />
                                     }
 
                                     title={this.state.viewPostModalData.username}
-                                    
-                                    //  subheader ={new Intl.DateTimeFormat('default', options).format(mediadata.timestamp)}
-                                    
+
+                                //  subheader ={new Intl.DateTimeFormat('default', options).format(mediadata.timestamp)}
+
 
                                 />
-    
+
                                 <hr></hr>
                                 <CardContent>
                                     <Typography paragraph>
                                         {this.state.viewPostModalData.caption}
 
                                     </Typography>
-                                    {/* <Typography paragraph>
-                                        {'#'+this.state.viewPostModalData.caption.split("#")[1]} {'#'+this.state.viewPostModalData.mediadata.caption.split("#")[2]} {'#'+this.state.viewPostModalData.caption.split("#")[3]}
+                                    {/* <Typography paragraph className="hashtag">
+                                        {'#'+this.state.viewPostModalData.caption.split("#")[1]} {'#'+this.state.viewPostModalData.caption.split("#")[2]} {'#'+this.state.viewPostModalData.caption.split("#")[3]}
                                     </Typography> */}
                                     <FormControl >
-                                <FormHelperText className={this.state.addedComment}><Typography >{this.state.username}{this.state.addedComment}</Typography></FormHelperText>
-                                                </FormControl>
+                                        <FormHelperText className={this.state.addedComment}><Typography >{this.state.username}{this.state.addedComment}</Typography></FormHelperText>
+                                    </FormControl>
 
 
 
-<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+                                    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
                                     <div><span className="inlineObjects">
-                                    {this.state.likeFlag === false ?
-                                        <FavoriteBorder id="likeButton"
-                                            onClick={this.likeClickHanlder.bind(this)}>
-                                        </FavoriteBorder> :
-                                        <FavoriteIcon className="favIcon" id="unlikeButton"
-                                            onClick={this.unlikeClickHanlder.bind(this)}>
-                                        </FavoriteIcon>
-                                     }
+                                        {this.state.likeFlag === false ?
+                                            <FavoriteBorder id="likeButton"
+                                                onClick={this.likeClickHanlder.bind(this)}>
+                                            </FavoriteBorder> :
+                                            <FavoriteIcon className="favIcon" id="unlikeButton"
+                                                onClick={this.unlikeClickHanlder.bind(this)}>
+                                            </FavoriteIcon>
+                                        }
                                         <Typography variant="caption" className={"classes.textForLike"}>
                                             <span>{this.state.likes} likes</span>
                                         </Typography>
-                                        <br/> <br/>
-                                        
+                                        <br /> <br />
+
 
                                     </span></div>
-                                
 
-                                <FormControl >
-                                    <InputLabel htmlFor="imagecomment">Add a Comment</InputLabel>
-                                    <Input id="imagecomment" type="text" className="commentField" onChange={this.imageCommentOnChangeChangeHandler} />
-                                </FormControl>
-                                <Button variant="contained" color="primary" onClick={this.addCommentOnClickHandler}>ADD</Button>
+
+                                    <FormControl >
+                                        <InputLabel htmlFor="imagecomment">Add a Comment</InputLabel>
+                                        <Input id="imagecomment" type="text" className="commentField" onChange={this.imageCommentOnChangeChangeHandler} />
+                                    </FormControl>
+                                    <Button variant="contained" color="primary" onClick={this.addCommentOnClickHandler}>ADD</Button>
 
                                 </CardContent>
                             </Card>
@@ -412,4 +402,3 @@ class Profile extends Component {
 export default withStyles(styles)(Profile);
 
 
-//export default Profile;

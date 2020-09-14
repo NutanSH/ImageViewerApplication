@@ -63,6 +63,7 @@ class Header extends Component {
             searchTerm: '',
             modalIsOpen: false,
             menuIsOpen: false,
+            anchorEl:null,
             loggedIn: sessionStorage.getItem("access-token") == null ? false : true,
            
     
@@ -113,9 +114,10 @@ class Header extends Component {
 
                     <div className="logoText">
                         <Typography noWrap>
-                            Image Viewer
-          </Typography>
+                            Image Viewer </Typography>
                     </div>
+
+{/* Changes to display profile picture icon and search bar */}
 
                     {this.props.showProfileIcon === "true"
                         ?
@@ -154,6 +156,7 @@ class Header extends Component {
                         : ""
                     }
 
+{/* Changes to display the toggle menu on click of profile icon */}
 
                     <div>
                         <Menu
@@ -189,6 +192,6 @@ class Header extends Component {
     }
 }
 
-//export default Header; 
+
 
 export default withStyles(styles)(Header);

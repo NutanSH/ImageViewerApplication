@@ -14,7 +14,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 class Home extends Component {
@@ -28,9 +27,9 @@ class Home extends Component {
                 likes: 3,
                 color: "black"
             }],
-            imagecomment:"",
-            addedComment:"",
-            username:"",
+            imagecomment: "",
+            addedComment: "",
+            username: "",
             likeFlag: false
 
         }
@@ -39,32 +38,33 @@ class Home extends Component {
 
     likeClickHanlder() {
 
-        this.setState({likes: this.state.likes + 1});
-        this.setState({likeFlag: true});
+        this.setState({ likes: this.state.likes + 1 });
+        this.setState({ likeFlag: true });
 
     }
 
-    unlikeClickHanlder(){
+    unlikeClickHanlder() {
         this.setState({
-            likes: this.state.likes - 1});
-        this.setState({likeFlag: false});
+            likes: this.state.likes - 1
+        });
+        this.setState({ likeFlag: false });
 
     }
 
     imageCommentOnChangeChangeHandler = (e) => {
-        this.setState({imagecomment: e.target.value});
+        this.setState({ imagecomment: e.target.value });
     }
 
     addCommentOnClickHandler = (post) => {
-        this.setState({addedComment :this.state.imagecomment});
-        this.setState({username: "upgraddemo: "});
+        this.setState({ addedComment: this.state.imagecomment });
+        this.setState({ username: "upgraddemo: " });
 
     }
 
     async UNSAFE_componentWillMount() {
         const token = sessionStorage.getItem("access-token");
-        console.log(" In Home.js inside UNSAFE_componentWillMount ");
-        console.log(" token ", token);
+
+        // If Logged out load login page
         if (token === null) {
             this.props.history.push({
                 pathname: `/`,
@@ -84,7 +84,7 @@ class Home extends Component {
 
     render() {
 
-        const { classes } = this.props;
+
 
         const styles =
         {
@@ -98,22 +98,9 @@ class Home extends Component {
 
 
 
-        // const filteredPosts=
-        // this.state.postData.filter (post =>{
-        //     return post.caption.includes(this.state.inPutValue)
-        // }
-        //     )
-
-       const options = {
-            year: 'numeric', month: 'numeric', day: 'numeric',
-            hour: 'numeric', minute: 'numeric', second: 'numeric',
-            hour12: false,
-            timeZone: 'America/Los_Angeles' 
-          };
-          
         return (
             <div>
-                <Header showSearchBar="true" showProfileIcon="true" showMyAccount="true"/>
+                <Header showSearchBar="true" showProfileIcon="true" showMyAccount="true" />
 
 
                 <GridList cellHeight={600} cols={2} spacing={2}>
@@ -129,12 +116,12 @@ class Home extends Component {
 
                                     title={mediadata.username}
                                     subheader={mediadata.timestamp}
-                                    //  subheader ={new Intl.DateTimeFormat('default', options).format(mediadata.timestamp)}
-                                    
+                                //  subheader ={new Intl.DateTimeFormat('default', options).format(mediadata.timestamp)}
+
 
                                 />
-                               
-                               
+
+
 
                                 <CardMedia
 
@@ -149,41 +136,38 @@ class Home extends Component {
                                         {mediadata.caption.split("#")[0]}
 
                                     </Typography>
-                                    <Typography paragraph>
-                                        {'#'+mediadata.caption.split("#")[1]} {'#'+mediadata.caption.split("#")[2]} {'#'+mediadata.caption.split("#")[3]}
+                                    <Typography paragraph className="hashtag">
+                                        {'#' + mediadata.caption.split("#")[1]} {' #' + mediadata.caption.split("#")[2]} {' #' + mediadata.caption.split("#")[3]}
                                     </Typography>
 
-
-
-
-
+                                    {/* Logic to display like button */}
                                     <div><span className="inlineObjects">
 
-                                    {this.state.likeFlag === false ?
-                                        <FavoriteBorder id="likeButton"
-                                            onClick={this.likeClickHanlder.bind(this)}>
-                                        </FavoriteBorder> :
-                                        <FavoriteIcon className="favIcon" id="unlikeButton"
-                                            onClick={this.unlikeClickHanlder.bind(this)}>
-                                        </FavoriteIcon>
-                                     }
+                                        {this.state.likeFlag === false ?
+                                            <FavoriteBorder id="likeButton"
+                                                onClick={this.likeClickHanlder.bind(this)}>
+                                            </FavoriteBorder> :
+                                            <FavoriteIcon className="favIcon" id="unlikeButton"
+                                                onClick={this.unlikeClickHanlder.bind(this)}>
+                                            </FavoriteIcon>
+                                        }
                                         <Typography variant="caption" className={"classes.textForLike"}>
                                             <span>{this.state.likes} likes</span>
                                         </Typography>
-                                        <br/> <br/>
+                                        <br /> <br />
                                         <FormControl >
-                               
-                                    <Typography>{this.state.username}{this.state.addedComment}</Typography>
-                                                </FormControl>
+
+                                            <Typography>{this.state.username}{this.state.addedComment}</Typography>
+                                        </FormControl>
 
                                     </span></div>
-                                
 
-                                <FormControl >
-                                    <InputLabel htmlFor="imagecomment">Add a Comment</InputLabel>
-                                    <Input id="imagecomment" type="text" className="commentField" onChange={this.imageCommentOnChangeChangeHandler} />
-                                </FormControl>
-                                <Button variant="contained" color="primary" onClick={this.addCommentOnClickHandler}>ADD</Button>
+                                    {/* Logic for comment section */}
+                                    <FormControl >
+                                        <InputLabel htmlFor="imagecomment">Add a Comment</InputLabel>
+                                        <Input id="imagecomment" type="text" className="commentField" onChange={this.imageCommentOnChangeChangeHandler} />
+                                    </FormControl>
+                                    <Button variant="contained" color="primary" onClick={this.addCommentOnClickHandler}>ADD</Button>
 
                                 </CardContent>
                             </Card>

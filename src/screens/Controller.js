@@ -9,16 +9,12 @@ const commonClient = new CommonClient();
 
 class Controller extends Component {
 
-    constructor() {
-        super();
-        // this.baseUrl = "";
-    }
-
 
     render() {
 
         return (
 
+            // Defining all the routes required for page navigation here
             <Router>
                 <div className="main-container">
                     <Route exact path='/' render={(props) => <Login {...props}  />} />

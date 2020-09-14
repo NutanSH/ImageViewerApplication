@@ -1,6 +1,8 @@
 const axios = require('axios');
 axios.defaults.baseURL = 'https://graph.instagram.com/';
 
+
+// This is a common client implemented for making API calls to instagram from home page and profile page
 function CommonClient() {}
 
 CommonClient.prototype.getMdeia = () => {

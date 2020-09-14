@@ -72,8 +72,8 @@ class Login extends Component {
     render() {
 
         const mystyle = {
-            minWidth: 240,
-            maxWidth: 240,
+            minWidth: 280,
+            maxWidth: 280,
             left: '40%',
             position: 'absolute',
             top: '15%',
@@ -93,18 +93,18 @@ class Login extends Component {
 
                     <CardContent >
                         <FormControl >
-                            <Typography color="textSecondary">LOGIN</Typography>
+                            <Typography>LOGIN</Typography>
                         </FormControl><br />
                         <FormControl required>
                             <InputLabel htmlFor="userName">Username</InputLabel>
-                            <Input id="username" onChange={this.usernameChangeHandler} />
+                            <Input className="textField" id="username" onChange={this.usernameChangeHandler} />
                             <FormHelperText className={this.state.usernameRequired}>
                                 <span className="red">required</span>
                             </FormHelperText>
                         </FormControl><br />
                         <FormControl required>
                             <InputLabel htmlFor="password">Password</InputLabel>
-                            <Input id="password" type="password" onChange={this.passwordChangeHandler} />
+                            <Input className="textField" id="password" type="password" onChange={this.passwordChangeHandler} />
                             <FormHelperText className={this.state.passwordRequired}>
                                 <span className="red">required</span>
                             </FormHelperText><br />
