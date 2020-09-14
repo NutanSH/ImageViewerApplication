@@ -12,7 +12,6 @@ import Menu from '@material-ui/core/Menu';
 import { withStyles } from '@material-ui/core/styles';
 
 
-
 const styles = theme => ({
     grow: {
         flexGrow: 1,
@@ -107,8 +106,7 @@ class Header extends Component {
 
     render() {
 
-const { classes } = this.props;
-
+    
         return (
 
 
@@ -143,7 +141,7 @@ const { classes } = this.props;
 
                         <Paper component="form" className="searchBarStyle" >
 
-                            <IconButton className="searchIcon" type="submit" aria-label="search">
+                            <IconButton class="searchIcon" type="submit" aria-label="search">
                                 <SearchIcon />
                             </IconButton>
                             <Input className="searchField"
@@ -170,10 +168,18 @@ const { classes } = this.props;
                             onClose={this.closeMenuHandler}
 
                         >
-                            <Link to='/profile' style={{ textDecoration: 'none' }} >
-                                <MenuItem >My Account</MenuItem></Link><hr />
+
+                            {this.props.showMyAccount === "true"
+                                ?
+
+                                <div>
+                                    <Link to='/profile' style={{ textDecoration: 'none' }} >
+                                        <MenuItem >My Account</MenuItem></Link><hr />
+                                </div> : ""}
+
+<div>
                             <Link to='/' style={{ textDecoration: 'none' }} >
-                                <MenuItem onClick={this.logoutHandler}>Logout</MenuItem></Link>
+                                <MenuItem onClick={this.logoutHandler}>Logout</MenuItem></Link></div>
                         </Menu>
                     </div>
 
@@ -186,6 +192,6 @@ const { classes } = this.props;
     }
 }
 
-
+//export default Header; 
 
 export default withStyles(styles)(Header);

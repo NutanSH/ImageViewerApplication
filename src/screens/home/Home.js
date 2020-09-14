@@ -14,7 +14,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 class Home extends Component {
 
@@ -28,7 +28,8 @@ class Home extends Component {
                 color: "black"
             }],
             imagecomment:"",
-            addedComment:""
+            addedComment:"",
+            username:""
 
         }
     }
@@ -49,6 +50,7 @@ class Home extends Component {
 
     addCommentOnClickHandler = (e) => {
         this.setState({addedComment :this.state.imagecomment});
+        this.setState({username: "upgraddemo: "});
 
     }
 
@@ -75,6 +77,7 @@ class Home extends Component {
 
     render() {
 
+        const { classes } = this.props;
 
         const styles =
         {
@@ -88,6 +91,12 @@ class Home extends Component {
 
 
 
+        // const filteredPosts=
+        // this.state.postData.filter (post =>{
+        //     return post.caption.includes(this.state.inPutValue)
+        // }
+        //     )
+
        const options = {
             year: 'numeric', month: 'numeric', day: 'numeric',
             hour: 'numeric', minute: 'numeric', second: 'numeric',
@@ -97,7 +106,7 @@ class Home extends Component {
           
         return (
             <div>
-                <Header showSearchBar="true" showProfileIcon="true" />
+                <Header showSearchBar="true" showProfileIcon="true" showMyAccount="true"/>
 
 
                 <GridList cellHeight={600} cols={2} spacing={2}>
@@ -149,11 +158,9 @@ class Home extends Component {
                                             <span>{this.state.likes} likes</span>
                                         </Typography>
                                         <br/> <br/>
-                                        {/* <FormControl >
-                                                    <FormHelperText className={this.state.addedComment}> */}
-                                                        <Typography> {this.state.addedComment}</Typography>
-                                                        {/* </FormHelperText>
-                                                </FormControl> */}
+                                        <FormControl >
+                                <FormHelperText className={this.state.addedComment}><Typography>{this.state.username}{this.state.addedComment}</Typography></FormHelperText>
+                                                </FormControl>
 
                                     </span></div>
                                 
