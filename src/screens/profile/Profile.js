@@ -108,15 +108,23 @@ class Profile extends Component {
             viewPostModalData: [],
             imagecomment:"",
             addedComment:"",
-            username:""
+            username:"",
+            likeFlag: false,
+            likes : 5
         }
     }
-    likeThePic() {
 
+    likeClickHanlder() {
+
+        this.setState({likes: this.state.likes + 1});
+        this.setState({likeFlag: true});
+
+    }
+
+    unlikeClickHanlder(){
         this.setState({
-            favoriteIconlikes: this.state.favoriteIconlikes + 1,
-
-        });
+            likes: this.state.likes - 1});
+        this.setState({likeFlag: false});
 
     }
 
@@ -157,7 +165,7 @@ class Profile extends Component {
             viewPostModalData: post
 
         });
-        console.log("POST DATA INSIDE MODAL :" + post);
+        
     }
 
 
@@ -361,9 +369,14 @@ class Profile extends Component {
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
                                     <div><span className="inlineObjects">
-                                        <FavoriteBorder id="likeButton">
-                                            {/* // onClick={this.likeClickHanlder.bind(this)}> */}
-                                        </FavoriteBorder>
+                                    {this.state.likeFlag === false ?
+                                        <FavoriteBorder id="likeButton"
+                                            onClick={this.likeClickHanlder.bind(this)}>
+                                        </FavoriteBorder> :
+                                        <FavoriteIcon className="favIcon" id="unlikeButton"
+                                            onClick={this.unlikeClickHanlder.bind(this)}>
+                                        </FavoriteIcon>
+                                     }
                                         <Typography variant="caption" className={"classes.textForLike"}>
                                             <span>{this.state.likes} likes</span>
                                         </Typography>

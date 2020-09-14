@@ -22,10 +22,12 @@
     color: #fff;
     width: 280px;
     margin-right: 20px;
-    background: #c0c0c0;
+    background-color: #c0c0c0;
     border-radius: 4px;
     vertical-align: middle;
     position: relative;
+    margin-top: -32px;
+    
     
 }
 
@@ -47,20 +49,27 @@
 
   .profileIcon{
     float:right;
-    
+    margin-top: -35px;
   
   }
 
 .searchField{
  background-color: #c0c0c0;
  vertical-align: middle;
- padding: 8px 10px 9px 31px;
+ padding: 8px 10px 9px 26px;
+ 
 
 }
 
 .searchIcon{
   background-color: #c0c0c0;
   padding: 5px 10px 20px 10px;
-  border: none;
+  border-color: black;
   vertical-align: middle;
+ 
+}
+
+.menuItem{
+  color:black;
+  margin-bottom: -100px;
 }

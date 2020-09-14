@@ -64,12 +64,8 @@ class Header extends Component {
             modalIsOpen: false,
             menuIsOpen: false,
             loggedIn: sessionStorage.getItem("access-token") == null ? false : true,
-            names: [
-                'John',
-                'George',
-                'Mary',
-                'Leonardo'
-            ]
+           
+    
         }
     }
 
@@ -92,7 +88,7 @@ class Header extends Component {
 
     openMenuHandler = () => {
         this.setState({
-            menuIsOpen: true,
+            menuIsOpen: true
         });
 
     }
@@ -139,9 +135,10 @@ class Header extends Component {
 
                     {this.props.showSearchBar === "true" ?
 
-                        <Paper component="form" className="searchBarStyle" >
+                    <div className="searchBarStyle">
+                        <Paper component="form"  >
 
-                            <IconButton class="searchIcon" type="submit" aria-label="search">
+                            <IconButton className="searchIcon" type="submit" aria-label="search">
                                 <SearchIcon />
                             </IconButton>
                             <Input className="searchField"
@@ -152,7 +149,7 @@ class Header extends Component {
                             />
 
 
-                        </Paper>
+                        </Paper></div>
 
                         : ""
                     }
@@ -173,13 +170,13 @@ class Header extends Component {
                                 ?
 
                                 <div>
-                                    <Link to='/profile' style={{ textDecoration: 'none' }} >
-                                        <MenuItem >My Account</MenuItem></Link><hr />
+                                    <Link to='/profile' style={{ textDecoration: 'none' }} className="menuItem" >
+                                        <MenuItem className="menuItem">My Account</MenuItem></Link><hr />
                                 </div> : ""}
 
 <div>
-                            <Link to='/' style={{ textDecoration: 'none' }} >
-                                <MenuItem onClick={this.logoutHandler}>Logout</MenuItem></Link></div>
+                            <Link to='/' style={{ textDecoration: 'none' }} className="menuItem">
+                                <MenuItem className="menuItem" onClick={this.logoutHandler}>Logout</MenuItem></Link></div>
                         </Menu>
                     </div>
 

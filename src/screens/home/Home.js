@@ -15,6 +15,7 @@ import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 class Home extends Component {
 
@@ -29,7 +30,8 @@ class Home extends Component {
             }],
             imagecomment:"",
             addedComment:"",
-            username:""
+            username:"",
+            likeFlag: false
 
         }
     }
@@ -37,10 +39,15 @@ class Home extends Component {
 
     likeClickHanlder() {
 
-        this.setState({
-            likes: this.state.likes + 1
+        this.setState({likes: this.state.likes + 1});
+        this.setState({likeFlag: true});
 
-        });
+    }
+
+    unlikeClickHanlder(){
+        this.setState({
+            likes: this.state.likes - 1});
+        this.setState({likeFlag: false});
 
     }
 
@@ -48,7 +55,7 @@ class Home extends Component {
         this.setState({imagecomment: e.target.value});
     }
 
-    addCommentOnClickHandler = (e) => {
+    addCommentOnClickHandler = (post) => {
         this.setState({addedComment :this.state.imagecomment});
         this.setState({username: "upgraddemo: "});
 
@@ -151,15 +158,22 @@ class Home extends Component {
 
 
                                     <div><span className="inlineObjects">
+
+                                    {this.state.likeFlag === false ?
                                         <FavoriteBorder id="likeButton"
                                             onClick={this.likeClickHanlder.bind(this)}>
-                                        </FavoriteBorder>
+                                        </FavoriteBorder> :
+                                        <FavoriteIcon className="favIcon" id="unlikeButton"
+                                            onClick={this.unlikeClickHanlder.bind(this)}>
+                                        </FavoriteIcon>
+                                     }
                                         <Typography variant="caption" className={"classes.textForLike"}>
                                             <span>{this.state.likes} likes</span>
                                         </Typography>
                                         <br/> <br/>
                                         <FormControl >
-                                <FormHelperText className={this.state.addedComment}><Typography>{this.state.username}{this.state.addedComment}</Typography></FormHelperText>
+                               
+                                    <Typography>{this.state.username}{this.state.addedComment}</Typography>
                                                 </FormControl>
 
                                     </span></div>
